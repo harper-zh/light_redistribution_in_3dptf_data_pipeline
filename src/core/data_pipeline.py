@@ -4,6 +4,7 @@ from camera_calib import cam_calib
 from pathlib import Path
 from act_img import process_images
 from point3d_transformation import process_coords
+from extrinsic_calibration import calibrate_camera_extrinsic
 
 
 def main():
@@ -41,7 +42,17 @@ def main():
     else:
         world_coords = data.world_coords
         print("3d角点坐标已有")
-        print(list(world_coords.items()))
+        # print(list(world_coords.items()))
+    #五，计算相机外参
+    if data.extrinsic_matrix is None:
+        data = calibrate_camera_extrinsic()
+        extrinsic_matrix = data.extrinsic_matrix
+        print(f"相机外参计算完成，外参为：{extrinsic_matrix}")
+
+    else:
+        extrinsic_matrix = data.extrinsic_matrix
+        print(f"相机外参已有，外参为：{extrinsic_matrix}")
+        
     return data
 
 

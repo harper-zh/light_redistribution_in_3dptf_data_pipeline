@@ -1,7 +1,7 @@
 import itertools
 import numpy as np
 from scipy.spatial.transform import Rotation as R
-# from core.检查照片缺失 import photo_folder
+
 from data_manager import DataManager
 import os
 from datetime import datetime

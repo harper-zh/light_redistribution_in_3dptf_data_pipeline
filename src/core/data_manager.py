@@ -15,7 +15,7 @@ class DataManager:
         self.pose = {}  #机器人的六点位姿{(img_name): [x,y,z,a,b,c]}
         self.camera_matrix = None  # 相机内参矩阵 (3x3)
         self.distortion_coeffs = None  # 畸变系数
-
+        self.extrinsic_matrix = None  # 相机外参矩阵
     def add_pixel_coords(self, img_name, coords):
         self.pixel_coords[img_name] = coords  #像素坐标
 
@@ -44,7 +44,8 @@ class DataManager:
         """
         self.camera_matrix = matrix
         self.distortion_coeffs = coeffs
-
+    def add_extrinsic_matrix(self, matrix):
+        self.extrinsic_matrix = matrix
     def save(self, filename=Path(__file__).parent.parent/'output'/'data.pkl'):
         with open(filename, "wb") as f:
             pickle.dump(self, f)  # 保存整个对象
